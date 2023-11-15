@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guesssing Game</title>
+    <style>@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap");
+body {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+div.container {
+  width: 80%;
+  margin: auto;
+  background-color: green;
+}
+h1#game-title {
+  font-family: "Varela Round", sans-serif;
+  font-style: italic;
+  background-color: orange;
+  border-radius: 1rem;
+  font-size: 5vw;
+}
+form#password-form {
+}
+input.letter-input {
+  width: calc(80% / 5);
+  text-align: center;
+  font-size: 4vw;
+  /*   line-height: 2rem; */
+  /*   width: 2.2rem; */
+  background-color: beige;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  /*  Now we see the need for Calculation  */
+  margin: 1rem 1vw;
+}
+
+table {
+  text-align: center;
+  border: 1px solid black;
+  margin: 2rem auto;
+  background-color: beige;
+  width: 100%;
+}
+th,
+td {
+  padding: 0.5rem;
+  border: 1px solid black;
+  vertical-align: top;
+}
+
+div#picture {
+  position: relative;
+  top: -30px;
+  left: 50px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+  <h1 id="game-title">GUESS THE PASSWORD!</h1>
+  <form id="password-form">
+
+    <div id="picture">
+      <img src="" width="150" height="150" id="character-image" alt="character-select-image" />
+      <select name="image-choice" id="image-select">
+        <option value="" disabled selected>Select an image</option>
+
+        <option value="donkey">Donkey</option>
+        <option value="unicorn">Unicorn girl</option>
+        <option value="lady">Lady</option>
+      </select>
+    </div>
+
+    <!--     <input type="text" class="letter-input" maxLength="1">
+    <input type="text" class="letter-input" maxLength="1">
+    <input type="text" class="letter-input" maxLength="1">
+    <input type="text" class="letter-input" maxLength="1">
+    <input type="text" class="letter-input" maxLength="1"> -->
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Wrong:</th>
+        <th>Wrong:</th>
+        <th>Wrong:</th>
+        <th>Wrong:</th>
+        <th>Wrong:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="td0">X:</td>
+        <td id="td1">X:</td>
+        <td id="td2">X:</td>
+        <td id="td3">X:</td>
+        <td id="td4">X:</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    <script>
+        const passwordForm = document.querySelector("#password-form");
+
+const imageSelect = document.getElementById("image-select");
+const characterImg = document.getElementById("character-image");
+
+const characterSelectSrc =
+  "https://drive.google.com/uc?export=download&id=1ayfmqbm6-Ab2ws71xBS2SFHoGNdBJNOE";
+
+const donkeySrc =
+  "https://drive.google.com/uc?export=view&id=1owq3LJa1tuvW8bXa8eHtyQdnsZG16XtZ";
+
+const unicornSrc =
+  "https://drive.google.com/uc?export=view&id=1FQX9f7ROb2kt3Nr8ufg8qeTXuTuyTWU0";
+
+const ladySrc =
+  "https://drive.google.com/uc?export=view&id=1EFVCA66Oa4hNyHSluF4Ta-hix9wSkwFC";
+
+let phrase = "guess";
+let index = 0;
+
+for (let char of phrase) {
+  console.log(char);
+  console.log(index);
+  const letterInput = document.createElement("input");
+  letterInput.type = "text";
+  letterInput.classList.add("letter-input");
+  letterInput.maxLength = "1";
+  letterInput.id = index.toString();
+  passwordForm.appendChild(letterInput);
+  index++;
+}
+passwordForm.addEventListener("change", function (event) {
+  const thisInput = event.target;
+  const guess = thisInput.value;
+  console.log(thisInput);
+  console.log(guess);
+
+  if (guess === phrase[thisInput.id]) {
+    console.log("you guessed right!");
+  } else {
+    console.log("Wrong!");
+    const br = document.createElement("br");
+    document.getElementById("td" + thisInput.id).appendChild(br);
+    document.getElementById("td" + thisInput.id).append(guess);
+    thisInput.value = "";
+  }
+
+  imageSelect.addEventListener("change", function () {
+    console.log(this.value);
+    let userChoice = this.value;
+    if (userChoice === "donkey") {
+      characterImg.src = donkeySrc;
+    } else if (userChoice === "unicorn") {
+      characterImg.src = unicornSrc;
+    } else if (userChoice === "lady") {
+      characterImg.src = ladySrc;
+    }
+  });
+});
+    </script>
+</body>
+</html>
